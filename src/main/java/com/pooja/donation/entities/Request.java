@@ -39,6 +39,6 @@ public class Request {
 	private Post post;
 	
 	@ManyToOne
-	private User user;
+	private UserEntity user;
 
 }

@@ -40,7 +40,7 @@ public class Post {
 	private LocalDateTime postDate;
 
 	@ManyToOne
-	private User user;
+	private UserEntity user;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Item> items = new ArrayList<>();

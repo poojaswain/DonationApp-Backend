@@ -2,7 +2,6 @@ package com.pooja.donation.services;
 
 import java.util.List;
 
-import com.pooja.donation.entities.User;
 import com.pooja.donation.payloads.UserDto;
 
 public interface UserService {
