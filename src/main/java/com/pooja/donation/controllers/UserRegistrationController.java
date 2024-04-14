@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pooja.donation.payloads.UserRegistrationDto;
+import com.pooja.donation.services.UserLoginService;
 import com.pooja.donation.services.impl.UserLoginSeviceImpl;
 
 @RestController
@@ -17,17 +18,17 @@ import com.pooja.donation.services.impl.UserLoginSeviceImpl;
 public class UserRegistrationController {
 
 	@Autowired
-	private UserLoginSeviceImpl userService;
+	private UserLoginService userService;
 
 	@PostMapping("/newUser")
 	public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDto registrationRequest) {
 		userService.registerUser(registrationRequest);
 		return new ResponseEntity<>("New User registered successfully", HttpStatus.CREATED);
 	}
-	
-	 @GetMapping("/hello")
-	    public String hello() {
-	        return "Hello, World!";
-	    }
+
+	@GetMapping("/hello")
+	public String hello() {
+		return "Hello, World!";
+	}
 
 }

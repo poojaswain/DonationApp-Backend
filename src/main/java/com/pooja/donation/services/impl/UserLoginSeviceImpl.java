@@ -8,23 +8,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.pooja.donation.entities.UserEntity;
 import com.pooja.donation.payloads.UserRegistrationDto;
 import com.pooja.donation.repositories.UserRepo;
 import com.pooja.donation.services.UserLoginService;
 
+@Service
 public class UserLoginSeviceImpl implements UserLoginService {
 
-	@Autowired
-	private UserRepo userRepository;
-	
 	@Autowired
 	private UserRepo userRepo;
 
 	private static final Logger logger = LoggerFactory.getLogger(UserLoginSeviceImpl.class);
-	
-	
+
 	@Override
 	public void registerUser(UserRegistrationDto request) {
 
@@ -40,7 +38,7 @@ public class UserLoginSeviceImpl implements UserLoginService {
 	private UserEntity UserEntity() {
 		return new UserEntity();
 	}
-	
+
 	private PasswordEncoder passEncoder() {
 		return new BCryptPasswordEncoder();
 	}
@@ -49,7 +47,7 @@ public class UserLoginSeviceImpl implements UserLoginService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		logger.debug("Entering in loadUserByUsername Method...");
-		UserEntity user = userRepository.findByUsername(username);
+		UserEntity user = userRepo.findByUsername(username);
 		if (user == null) {
 			logger.error("Username not found: " + username);
 			throw new UsernameNotFoundException("could not found user..!!");
