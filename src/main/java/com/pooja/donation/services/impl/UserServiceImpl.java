@@ -76,5 +76,11 @@ public class UserServiceImpl implements UserService {
 		return userDto;
 
 	}
+
+	@Override
+	public Integer getUserIdByUsername(String username) {
+		UserEntity user =  userRepo.findByUsername(username);
+		return user.getId();
+	}
 	
 }

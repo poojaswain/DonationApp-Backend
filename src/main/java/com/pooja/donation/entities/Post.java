@@ -30,14 +30,17 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "donation_type", nullable = false)
+	@Column(name = "donation_type")
 	private String donationType;
 
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "post_Date", nullable = false)
+	@Column(name = "post_Date")
 	private LocalDateTime postDate;
+	
+	@Column(name = "post_image")
+	private String coverImage;
 
 	@ManyToOne
 	private UserEntity user;
