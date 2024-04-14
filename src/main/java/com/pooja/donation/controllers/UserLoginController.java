@@ -39,8 +39,10 @@ public class UserLoginController {
 
 		UserDetails userDetails = loginService.loadUserByUsername(request.getUsername());
 		String token = this.jwtService.generateToken(userDetails);
+		String userType = loginService.getUserType(userDetails.getUsername());
 
-		JwtResponseDto response = JwtResponseDto.builder().jwtToken(token).username(userDetails.getUsername()).build();
+		JwtResponseDto response = JwtResponseDto.builder().jwtToken(token).username(userDetails.getUsername())
+				.userType(userType).build();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 

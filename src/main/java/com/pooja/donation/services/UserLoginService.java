@@ -7,5 +7,7 @@ import com.pooja.donation.payloads.UserRegistrationDto;
 public interface UserLoginService extends UserDetailsService{
 	
 	public void registerUser(UserRegistrationDto request);
+	
+	public String getUserType(String username);
 
 }

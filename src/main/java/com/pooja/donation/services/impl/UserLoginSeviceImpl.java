@@ -56,4 +56,10 @@ public class UserLoginSeviceImpl implements UserLoginService {
 		return User.builder().username(user.getUsername()).password(user.getPassword()).build();
 	}
 
+	@Override
+	public String getUserType(String username) {
+		UserEntity user = userRepo.findByUsername(username);
+		return user.getUserType();
+	}
+
 }
