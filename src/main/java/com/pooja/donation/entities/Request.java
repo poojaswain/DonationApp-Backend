@@ -16,29 +16,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="Requests")
+@Table(name = "Requests")
 @NoArgsConstructor
 @Getter
 @Setter
 public class Request {
 
 	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reqId;
-	
-//	@Column(name="user_id")
-//	private String userId;
-	
-	@Column(name="request_Date")
+
+	@Column(name = "request_Date")
 	private LocalDateTime requestDate;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private Boolean status;
-	
+
 	@ManyToOne
 	private Post post;
-	
+
 	@ManyToOne
-	private User user;
+	private UserEntity user;
 
 }

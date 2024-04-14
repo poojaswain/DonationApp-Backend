@@ -1,7 +1,11 @@
 package com.pooja.donation.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,28 +28,31 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class UserEntity implements UserDetails{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="user_name", nullable= false, length=100)
-	private String name;
+	@Column(name="full_name", length=100)
+	private String fullName;
 	
-	@Column(name ="user_type", nullable= false)
+	@Column(name="user_name", length=100)
+	private String username;
+	
+	@Column(name ="user_type")
 	private String userType;
 	
-	@Column(name="email", nullable= false)
+	@Column(name="email")
 	private String email;
 	
-	@Column(name="password", nullable= false)
+	@Column(name="password")
 	private String password;
 	
-	@Column(name="address", nullable= false)
+	@Column(name="address")
 	private String address;
 	
-	@Column(name="contact_number", nullable= false,length=10)
+	@Column(name="contact_number", length=10)
 	private String contactNumber;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -53,5 +60,35 @@ public class User {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Request> requests = new ArrayList<>();
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

@@ -22,15 +22,15 @@ public class Item {
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
 	private int id;
 	
-    @Column(name="item_name", nullable= false)
+    @Column(name="item_name")
 	private String itemName;
 	
     
-    @Column(name="image")
-	private String itemImage;
+//    @Column(name="image")
+//	private String itemImage;
 	
     
-    @Column(name="item_category", nullable= false)
+    @Column(name="item_category")
 	private String itemCategory;
 	
     

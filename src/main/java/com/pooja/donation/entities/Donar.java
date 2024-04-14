@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Receivers")
+@Table(name = "Donors")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Receiver {
+public class Donar {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,7 @@ public class Receiver {
 
 	private int userId;
 
-	private String website;
-
-	private String receiverDescription;
+	private String donarDescription;
 
 	private String verificationDocumentation;
-
 }
