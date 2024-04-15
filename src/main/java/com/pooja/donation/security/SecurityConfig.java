@@ -38,8 +38,9 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable()).authorizeRequests().requestMatchers("/api/**")
-				.authenticated().requestMatchers("/auth/**").permitAll().anyRequest().authenticated().and()
-				.exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+				.authenticated().requestMatchers("/auth/**").permitAll()
+				.requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll().anyRequest()
+				.authenticated().and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 //		http.csrf(AbstractHttpConfigurer::disable);
