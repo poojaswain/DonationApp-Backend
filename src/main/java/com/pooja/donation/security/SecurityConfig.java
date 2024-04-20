@@ -16,6 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.pooja.donation.services.UserLoginService;
 import com.pooja.donation.services.impl.UserLoginSeviceImpl;
@@ -37,8 +42,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable()).authorizeRequests().requestMatchers("/api/**")
-				.authenticated().requestMatchers("/auth/**").permitAll()
+		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				.authorizeRequests().requestMatchers("/api/**").authenticated().requestMatchers("/auth/**").permitAll()
 				.requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll().anyRequest()
 				.authenticated().and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -53,6 +58,22 @@ public class SecurityConfig {
 
 		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.addAllowedOrigin("*"); // allow requests from any origin
+		config.addAllowedMethod("GET"); // allow GET method
+		config.addAllowedMethod("POST"); // allow POST method
+		config.addAllowedMethod("PUT"); // allow PUT method
+		config.addAllowedMethod("DELETE"); // allow DELETE method
+		config.addAllowedHeader("*"); // allow all headers
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+
+		return source;
 	}
 
 	@Bean
