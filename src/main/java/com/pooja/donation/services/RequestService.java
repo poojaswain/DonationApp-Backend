@@ -2,17 +2,22 @@ package com.pooja.donation.services;
 
 import java.util.List;
 
-import com.pooja.donation.payloads.RequestDTO;
+import com.pooja.donation.entities.Request;
+import com.pooja.donation.payloads.PostRequestDTO;
 
 public interface RequestService {
 	
-	RequestDTO createRequest(RequestDTO requestDTO);
+	PostRequestDTO createRequest(PostRequestDTO requestDTO);
 
-	RequestDTO getRequestById(int id);
+	PostRequestDTO getRequestById(int id);
 
-	List<RequestDTO> getAllRequests();
+	List<PostRequestDTO> getAllRequests();
 
-	RequestDTO updateRequest(int id, RequestDTO requestDTO);
+	PostRequestDTO updateRequest(int id, PostRequestDTO requestDTO);
 
 	void deleteRequest(int id);
+
+	Request raiseRequest(Integer userId, Integer postId, String reqMessage);
+
+	List<Request> getAllRequestsByPost(Integer postId);
 }
