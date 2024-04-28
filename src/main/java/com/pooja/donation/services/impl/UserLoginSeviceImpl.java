@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.pooja.donation.entities.Donor;
 import com.pooja.donation.entities.Receiver;
 import com.pooja.donation.entities.UserEntity;
-import com.pooja.donation.exceptionhandlers.PreconditionFailedException;
 import com.pooja.donation.payloads.ResponseDTO;
 import com.pooja.donation.payloads.UserRegistrationDto;
 import com.pooja.donation.repositories.UserRepo;

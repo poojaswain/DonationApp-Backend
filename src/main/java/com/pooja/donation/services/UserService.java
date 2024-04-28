@@ -2,6 +2,7 @@ package com.pooja.donation.services;
 
 import java.util.List;
 
+import com.pooja.donation.entities.UserEntity;
 import com.pooja.donation.payloads.UserDto;
 
 public interface UserService {
@@ -17,5 +18,7 @@ public interface UserService {
 	void deleteUser(Integer userId);
 
 	Integer getUserIdByUsername(String username);
+
+	UserEntity getUserEntity(Integer userId);
 
 }

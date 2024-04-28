@@ -30,20 +30,20 @@ public class PostController {
         return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable int id) {
-    	PostDto postDTO = postService.getPostById(id);
-        if (postDTO != null) {
-            return new ResponseEntity<>(postDTO, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PostDto> getPostById(@PathVariable int id) {
+//    	PostDto postDTO = postService.getPostById(id);
+//        if (postDTO != null) {
+//            return new ResponseEntity<>(postDTO, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
-    @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPosts() {
-        List<PostDto> postDTOs = postService.getAllPosts();
-        return new ResponseEntity<>(postDTOs, HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<PostDto>> getAllPosts() {
+//        List<PostDto> postDTOs = postService.getAllPosts();
+//        return new ResponseEntity<>(postDTOs, HttpStatus.OK);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@PathVariable int id, @RequestBody PostDto postDTO) {
