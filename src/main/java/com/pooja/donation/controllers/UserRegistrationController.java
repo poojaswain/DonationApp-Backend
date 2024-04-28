@@ -1,7 +1,6 @@
 package com.pooja.donation.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pooja.donation.payloads.ResponseDTO;
 import com.pooja.donation.payloads.UserRegistrationDto;
 import com.pooja.donation.services.UserLoginService;
-import com.pooja.donation.services.impl.UserLoginSeviceImpl;
 
 @RestController
 @RequestMapping("/auth/register")
@@ -21,9 +20,9 @@ public class UserRegistrationController {
 	private UserLoginService userService;
 
 	@PostMapping("/newUser")
-	public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDto registrationRequest) {
-		userService.registerUser(registrationRequest);
-		return new ResponseEntity<>("New User registered successfully", HttpStatus.CREATED);
+	public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserRegistrationDto registrationRequest) {	
+		ResponseDTO response = userService.registerUser(registrationRequest);
+		return new ResponseEntity<>(response, response.getHttpStatus());
 	}
 
 	@GetMapping("/hello")

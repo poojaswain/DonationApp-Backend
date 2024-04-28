@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pooja.donation.payloads.JwtRequestDto;
 import com.pooja.donation.payloads.JwtResponseDto;
+import com.pooja.donation.payloads.ResponseDTO;
 import com.pooja.donation.security.JwtService;
 import com.pooja.donation.services.UserLoginService;
+import com.pooja.donation.services.UserService;
 
 @RequestMapping("/auth")
 @RestController
@@ -33,17 +35,22 @@ public class UserLoginController {
 	@Autowired
 	UserLoginService loginService;
 
+	@Autowired
+	UserService userService;
+
 	@PostMapping("/login")
-	public ResponseEntity<JwtResponseDto> AuthenticateAndGetToken(@RequestBody JwtRequestDto request) {
+	public ResponseEntity<ResponseDTO> AuthenticateAndGetToken(@RequestBody JwtRequestDto request) {
 		this.doAuthenticate(request.getUsername(), request.getPassword());
 
 		UserDetails userDetails = loginService.loadUserByUsername(request.getUsername());
 		String token = this.jwtService.generateToken(userDetails);
 		String userType = loginService.getUserType(userDetails.getUsername());
+		String userId = userService.getUserIdByUsername(userDetails.getUsername()).toString();
 
-		JwtResponseDto response = JwtResponseDto.builder().jwtToken(token).username(userDetails.getUsername())
-				.userType(userType).build();
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		JwtResponseDto response = JwtResponseDto.builder().userId(userId).jwtToken(token)
+				.username(userDetails.getUsername()).userType(userType).build();
+		ResponseDTO result = new ResponseDTO(response, "User Logged In Successfully", HttpStatus.OK);
+		return new ResponseEntity<>(result, result.getHttpStatus());
 	}
 
 	private void doAuthenticate(String username, String password) {
