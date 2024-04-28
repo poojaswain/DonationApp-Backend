@@ -1,6 +1,6 @@
 package com.pooja.donation.payloads;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,13 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostDto {
-
-	private int id;
+	
+	private String postTitle;
 	private String donationType;
 	private String description;
-	private LocalDateTime postDate;
-	private String coverImage;
-//    private List<Item> items;
-//    private List<Request> requests;
-
+	private List<ItemDTO> itemList; 
 }

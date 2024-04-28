@@ -10,11 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemDTO {
-	private int id;
+	
+
 	private String itemName;
+	private String itemDescription;
 	private String itemCategory;
 	private Integer quantity;
 	private String quantityUnit;
-//    private PostDTO post;
-
 }
