@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pooja.donation.entities.FileDB;
 import com.pooja.donation.payloads.FileResponseDto;
+import com.pooja.donation.payloads.ResponseDTO;
 import com.pooja.donation.payloads.ResponseMessageDto;
 import com.pooja.donation.services.impl.FileStorageService;
 
@@ -26,53 +27,55 @@ import com.pooja.donation.services.impl.FileStorageService;
 @RequestMapping("/api")
 public class FileController {
 
-  @Autowired
-  private FileStorageService storageService;
+	@Autowired
+	private FileStorageService storageService;
 
-  @PostMapping("/upload")
-  public ResponseEntity<ResponseMessageDto> uploadFile(@RequestParam("file") MultipartFile file) {
-    String message = "";
-    try {
-      storageService.store(file);
+	@PostMapping("/upload")
+	public ResponseEntity<ResponseDTO> uploadFile(@RequestParam("file") MultipartFile file) {
+		ResponseDTO response = new ResponseDTO();
+		String message = "";
+		try {
+			FileDB storedFile = storageService.store(file);
+			storedFile.setData(null);
+			message = "Uploaded the file successfully: " + file.getOriginalFilename();
 
-      message = "Uploaded the file successfully: " + file.getOriginalFilename();
-      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessageDto(message));
-    } catch (Exception e) {
-      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessageDto(message));
-    }
-  }
+			response.setResponseObject(storedFile);
+			response.setMessage(message);
+			response.setHttpStatus(HttpStatus.OK);
 
-  @GetMapping("/files")
-  public ResponseEntity<List<FileResponseDto>> getListFiles() {
-    List<FileResponseDto> files = storageService.getAllFiles().map(dbFile -> {
-      String fileDownloadUri = ServletUriComponentsBuilder
-          .fromCurrentContextPath()
-          .path("/files/")
-          .path(dbFile.getId())
-          .toUriString();
+		} catch (Exception e) {
+			message = "Could not upload the file: " + file.getOriginalFilename() + "!";
 
-      return new FileResponseDto(
-          dbFile.getName(),
-          fileDownloadUri,
-          dbFile.getType(),
-          dbFile.getData().length);
-    }).collect(Collectors.toList());
+			response.setMessage(message);
+			response.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
 
-    return ResponseEntity.status(HttpStatus.OK).body(files);
-  }
+		}
+		return new ResponseEntity<>(response, response.getHttpStatus());
+	}
 
-  @GetMapping("/files/{id}")
-  public ResponseEntity<byte[]> getFile(@PathVariable String id) {
-    FileDB fileDB = storageService.getFile(id);
+	@GetMapping("/files")
+	public ResponseEntity<List<FileResponseDto>> getListFiles() {
+		List<FileResponseDto> files = storageService.getAllFiles().map(dbFile -> {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
+					.path(dbFile.getId()).toUriString();
 
-    return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-        .body(fileDB.getData());
-  }
-  
-  @GetMapping("/hi/hello")
-  public String hello() {
-      return "Hello, World!";
-  }
+			return new FileResponseDto(dbFile.getName(), fileDownloadUri, dbFile.getType(), dbFile.getData().length);
+		}).collect(Collectors.toList());
+
+		return ResponseEntity.status(HttpStatus.OK).body(files);
+	}
+
+	@GetMapping("/files/{id}")
+	public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+		FileDB fileDB = storageService.getFile(id);
+
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
+				.body(fileDB.getData());
+	}
+
+	@GetMapping("/hi/hello")
+	public String hello() {
+		return "Hello, World!";
+	}
 }
