@@ -24,12 +24,10 @@ public class Item {
 	
     @Column(name="item_name")
 	private String itemName;
-	
     
-//    @Column(name="image")
-//	private String itemImage;
-	
-    
+    @Column(name="item_desc")
+	private String description;
+	 
     @Column(name="item_category")
 	private String itemCategory;
 	
@@ -42,4 +40,15 @@ public class Item {
 
     @ManyToOne
     private Post post;
+
+	public Item(String itemName, String description, String itemCategory, Integer quantity, String quantityUnit) {
+		super();
+		this.itemName = itemName;
+		this.description = description;
+		this.itemCategory = itemCategory;
+		this.quantity = quantity;
+		this.quantityUnit = quantityUnit;
+	}
+    
+    
 }
