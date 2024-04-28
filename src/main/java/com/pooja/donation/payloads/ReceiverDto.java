@@ -9,12 +9,10 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDTO {
+public class ReceiverDto {
 	
+	private String website;
+	
+	private String description;
 
-	private String itemName;
-	private String itemDescription;
-	private String itemCategory;
-	private Integer quantity;
-	private String quantityUnit;
 }

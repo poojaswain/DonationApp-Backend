@@ -37,7 +37,7 @@ public class UserEntity implements UserDetails{
 	@Column(name="full_name", length=100)
 	private String fullName;
 	
-	@Column(name="user_name", length=100)
+	@Column(name="user_name", length=100, unique= true)
 	private String username;
 	
 	@Column(name ="user_type")

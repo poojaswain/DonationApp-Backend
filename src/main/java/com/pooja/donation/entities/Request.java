@@ -25,6 +25,18 @@ public class Request {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reqId;
+	
+	@Column(name = "user_id")
+	private int userId;
+	
+	@Column(name = "post_id")
+	private int postId;
+	
+	@Column(name = "created_by")
+	private String createdBy;
+	
+	@Column(name = "request_message")
+	private String reqMessage;
 
 	@Column(name = "request_Date")
 	private LocalDateTime requestDate;
@@ -32,10 +44,21 @@ public class Request {
 	@Column(name = "status")
 	private Boolean status;
 
-	@ManyToOne
-	private Post post;
+	public Request(int userId, int postId, String createdBy, String reqMessage, LocalDateTime requestDate,
+			Boolean status) {
+		super();
+		this.userId = userId;
+		this.postId = postId;
+		this.createdBy = createdBy;
+		this.reqMessage = reqMessage;
+		this.requestDate = requestDate;
+		this.status = status;
+	}
 
-	@ManyToOne
-	private UserEntity user;
+//	@ManyToOne
+//	private Post post;
+	
+//	@ManyToOne
+//	private UserEntity user;
 
 }

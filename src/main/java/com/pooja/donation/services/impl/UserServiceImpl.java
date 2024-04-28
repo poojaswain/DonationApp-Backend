@@ -82,5 +82,12 @@ public class UserServiceImpl implements UserService {
 		UserEntity user =  userRepo.findByUsername(username);
 		return user.getId();
 	}
+
+	@Override
+	public UserEntity getUserEntity(Integer userId) {
+		UserEntity user = this.userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "Id", userId));
+		return user;
+	}
 	
 }

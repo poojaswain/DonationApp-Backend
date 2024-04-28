@@ -29,6 +29,12 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "user_id")
+	private int userId;
+	
+	@Column(name = "post_title")
+	private String postTitle;
 
 	@Column(name = "donation_type")
 	private String donationType;
@@ -42,12 +48,26 @@ public class Post {
 	@Column(name = "post_image")
 	private String coverImage;
 
-	@ManyToOne
-	private UserEntity user;
-
+//	@ManyToOne
+//	private UserEntity user;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Item> items = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Request> requests = new ArrayList<>();
+
+	public Post(int userId, String postTitle, String donationType, String description, LocalDateTime postDate,
+			String coverImage) {
+		super();
+		this.userId = userId;
+		this.postTitle = postTitle;
+		this.donationType = donationType;
+		this.description = description;
+		this.postDate = postDate;
+		this.coverImage = coverImage;
+	}
+
+	
+
 }

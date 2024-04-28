@@ -11,11 +11,12 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestDTO {
-	private int reqId;
+public class PostRequestDTO {
+	
+
+	private String createdBy;
+	private String reqMessage;
 	private LocalDateTime requestDate;
 	private Boolean status;
-//    private PostDTO post;
-//    private UserDTO user;
 
 }

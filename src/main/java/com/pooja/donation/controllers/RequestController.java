@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pooja.donation.payloads.RequestDTO;
+import com.pooja.donation.payloads.PostRequestDTO;
 import com.pooja.donation.services.RequestService;
 
 @RestController
@@ -25,14 +25,14 @@ public class RequestController {
     private RequestService requestService;
 
     @PostMapping
-    public ResponseEntity<RequestDTO> createRequest(@RequestBody RequestDTO requestDTO) {
-        RequestDTO createdRequest = requestService.createRequest(requestDTO);
+    public ResponseEntity<PostRequestDTO> createRequest(@RequestBody PostRequestDTO requestDTO) {
+    	PostRequestDTO createdRequest = requestService.createRequest(requestDTO);
         return new ResponseEntity<>(createdRequest, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RequestDTO> getRequestById(@PathVariable int id) {
-        RequestDTO requestDTO = requestService.getRequestById(id);
+    public ResponseEntity<PostRequestDTO> getRequestById(@PathVariable int id) {
+    	PostRequestDTO requestDTO = requestService.getRequestById(id);
         if (requestDTO != null) {
             return new ResponseEntity<>(requestDTO, HttpStatus.OK);
         }
@@ -40,14 +40,14 @@ public class RequestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RequestDTO>> getAllRequests() {
-        List<RequestDTO> requestDTOs = requestService.getAllRequests();
+    public ResponseEntity<List<PostRequestDTO>> getAllRequests() {
+        List<PostRequestDTO> requestDTOs = requestService.getAllRequests();
         return new ResponseEntity<>(requestDTOs, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RequestDTO> updateRequest(@PathVariable int id, @RequestBody RequestDTO requestDTO) {
-        RequestDTO updatedRequest = requestService.updateRequest(id, requestDTO);
+    public ResponseEntity<PostRequestDTO> updateRequest(@PathVariable int id, @RequestBody PostRequestDTO requestDTO) {
+    	PostRequestDTO updatedRequest = requestService.updateRequest(id, requestDTO);
         if (updatedRequest != null) {
             return new ResponseEntity<>(updatedRequest, HttpStatus.OK);
         }

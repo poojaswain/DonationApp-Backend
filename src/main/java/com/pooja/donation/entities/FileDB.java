@@ -19,23 +19,23 @@ import lombok.Setter;
 @Setter
 @Table(name = "files")
 public class FileDB {
-	
+
 	public FileDB(String name, String type, byte[] data) {
-	    this.name = name;
-	    this.type = type;
-	    this.data = data;
-	  }
+		this.name = name;
+		this.type = type;
+		this.data = data;
+	}
 
-@Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
-  private String id;
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
 
-  private String name;
+	private String name;
 
-  private String type;
+	private String type;
 
-  @Lob
-  private byte[] data;
+	@Lob
+	private byte[] data;
 
 }
