@@ -21,4 +21,6 @@ public interface UserService {
 
 	UserEntity getUserEntity(Integer userId);
 
+	UserDto getUserBasicDetails(Integer userId);
+
 }

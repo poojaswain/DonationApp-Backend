@@ -56,6 +56,8 @@ public class UserLoginSeviceImpl implements UserLoginService {
 			newUser.setEmail(request.getEmail());
 			newUser.setUserType(utilService.getUserType(request.getUserType()).toString());
 			newUser.setFullName(request.getFullName());
+			newUser.setAddress(request.getAddress());
+			newUser.setContactNumber(request.getContactNumber());
 			UserEntity savedUser = userRepo.save(newUser);
 
 			UserType userType = utilService.getUserType(request.getUserType());
