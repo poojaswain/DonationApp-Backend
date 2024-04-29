@@ -1,9 +1,5 @@
 package com.pooja.donation.payloads;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,13 +10,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
-	private int id;
-	private String name;
-	private String type;
-	@Email(message = "Invaid email address !!")
+	
+	private int userId;
+	private String username;
+	private String fullName;
+	private String userType;
 	private String email;
-	private String password;
 	private String address;
-	private String contact;
-
+	private String contactNumber;
 }
