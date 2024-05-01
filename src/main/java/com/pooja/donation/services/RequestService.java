@@ -20,4 +20,6 @@ public interface RequestService {
 	Request raiseRequest(Integer userId, Integer postId, String reqMessage);
 
 	List<Request> getAllRequestsByPost(Integer postId);
+
+	Request approveRequest(Integer requestId);
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.pooja.donation.entities.Request;
 import com.pooja.donation.entities.UserEntity;
+import com.pooja.donation.exceptions.ResourceNotFoundException;
 import com.pooja.donation.payloads.PostRequestDTO;
 import com.pooja.donation.repositories.RequestRepo;
 import com.pooja.donation.services.RequestService;
@@ -88,6 +89,18 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public List<Request> getAllRequestsByPost(Integer postId) {
 		return requestRepository.findByPostId(postId);
+	}
+
+	@Override
+	public Request approveRequest(Integer requestId) {
+		if (requestRepository.existsById(requestId)) {
+            Request request = this.requestRepository.findById(requestId).orElseThrow(()-> new ResourceNotFoundException("Request","Id",requestId));
+            request.setStatus(true);
+            return requestRepository.save(request);
+        }else {
+        	return null;
+        }
+		
 	}
 
 	
