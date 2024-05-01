@@ -26,9 +26,10 @@ public class MainRequestController {
 	
 	// Create a new request specific to an user & post
 	@PostMapping("/user/{userId}/post/{postId}/request")
-	public ResponseEntity<ResponseDTO> createRequest(@RequestBody String reqMessage,
-			@PathVariable("userId") Integer userId, @PathVariable("postId") Integer postId) {
-		Request createdRequest = requestService.raiseRequest(userId, postId, reqMessage);
+	public ResponseEntity<ResponseDTO> createRequest(@PathVariable("userId") Integer userId,
+			@PathVariable("postId") Integer postId) {
+		
+		Request createdRequest = requestService.raiseRequest(userId, postId, null);
 
 		ResponseDTO response = new ResponseDTO(createdRequest, "New Request Created Successfully", HttpStatus.CREATED);
 		return new ResponseEntity<>(response, response.getHttpStatus());

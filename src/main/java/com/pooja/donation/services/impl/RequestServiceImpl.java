@@ -76,8 +76,11 @@ public class RequestServiceImpl implements RequestService {
 
 	@Override
 	public Request raiseRequest(Integer userId, Integer postId, String reqMessage) {
+		
 		UserEntity user = userService.getUserEntity(userId);
-		Request request = new Request(userId, postId, user.getFullName(), reqMessage, LocalDateTime.now(), false);
+		
+		String requestMessage = "Request Created for donation post by " + user.getFullName();
+		Request request = new Request(userId, postId, user.getFullName(), requestMessage, LocalDateTime.now(), false);
 
 		return requestRepository.save(request);
 	}
